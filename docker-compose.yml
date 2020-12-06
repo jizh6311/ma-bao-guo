@@ -1,0 +1,5 @@
+services:
+  ma-bao-guo:
+    image: ma-bao-guo:1.0
+    ports:
+      - "3000:3000"

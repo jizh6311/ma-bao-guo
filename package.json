@@ -1,0 +1,29 @@
+{
+  "name": "ma-bao-guo",
+  "version": "1.0.0",
+  "description": "A generator for Ma Bao Guo's quotations",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jizh6311/ma-bao-guo.git"
+  },
+  "keywords": [
+    "generator",
+    "hapi",
+    "hbase",
+    "vue"
+  ],
+  "author": "Jian Zhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jizh6311/ma-bao-guo/issues"
+  },
+  "homepage": "https://github.com/jizh6311/ma-bao-guo#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.0.3"
+  }
+}
