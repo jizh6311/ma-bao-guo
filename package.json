@@ -13,7 +13,7 @@
   },
   "keywords": [
     "generator",
-    "hapi",
+    "express",
     "hbase",
     "vue"
   ],
@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/jizh6311/ma-bao-guo#readme",
   "dependencies": {
-    "@hapi/hapi": "^20.0.3"
+    "express": "^4.17.1"
   }
 }

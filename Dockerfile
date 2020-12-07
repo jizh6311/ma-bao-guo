@@ -1,4 +1,4 @@
-FROM node:12.16.1-buster
+FROM node:12
 RUN node -v
 RUN npm -v
 
@@ -9,5 +9,5 @@ WORKDIR /usr/src/app
 COPY package-lock.json package.json /usr/src/app/
 RUN npm install
 COPY . /usr/src/app/
-EXPOSE 3000
+EXPOSE 8080
 CMD [ "npm", "start" ]

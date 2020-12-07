@@ -1,31 +1,16 @@
 'use strict';
 
-const Hapi = require('@hapi/hapi');
+const express = require('express');
 
-const init = async () => {
+// Constants
+const PORT = 8080;
+const HOST = '0.0.0.0';
 
-    const server = Hapi.server({
-        port: 3000,
-        host: 'localhost'
-    });
-
-    server.route({
-        method: 'GET',
-        path: '/',
-        handler: (request, h) => {
-            console.log("GET /")
-            return 'More APIs are coming! 很快啊！';
-        }
-    });
-
-    await server.start();
-    console.log('Server running on %s', server.info.uri);
-};
-
-process.on('unhandledRejection', (err) => {
-
-    console.log(err);
-    process.exit(1);
+// App
+const app = express();
+app.get('/', (req, res) => {
+  res.send('More APIs are coming! 很快啊！');
 });
 
-init();
+app.listen(PORT, HOST);
+console.log(`Running on http://${HOST}:${PORT}`);
