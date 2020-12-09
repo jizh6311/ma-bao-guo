@@ -3,3 +3,19 @@ services:
     image: ma-bao-guo:1.0
     ports:
       - "8080:8080"
+      
+  counchdb:
+    image: bitnami/couchdb:latest
+    environment:
+      - COUCHDB_USER=admin
+      - COUCHDB_PASSWORD=couchdb
+    ports:
+      - '5984:5984'
+      - '4369:4369'
+      - '9100:9100'
+    volumes:
+      - couchdb_data:/bitnami/couchdb
+      
+volumes:
+  couchdb_data:
+    driver: local          

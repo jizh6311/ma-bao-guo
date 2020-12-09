@@ -7,6 +7,11 @@ docker build -t ma-bao-guo:1.0 .
 ```
 
 ## Run docker container
-Method 1: Start with Docker-composer: `docker-compose up`
+Start docker containers for backend and database services by `docker-compose up`
 
-Method 2: Run the image: `docker run -d -p 8080:8080 ma-bao-guo:1.0`
+## CouchDB
+Create one database to store all the versions of `马保国语录`:
+
+`curl -X PUT http://admin:couchdb@127.0.0.1:5984/quotations`
+
+For more cURL commands of CouchDB, see its [document](https://docs.couchdb.org/en/stable/intro/curl.html)
