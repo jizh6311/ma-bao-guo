@@ -26,7 +26,6 @@ app.post('/quotation', (req, res) => {
   const payload = {
     _id: _.get(req, 'body.id'),
     keywords: _.get(req, 'body.keywords'),
-    createdTimestamp: new Date().getTime(),
     modifiedTimestamp: new Date().getTime(),
   }
   quotations.insert(payload).then((body) => {
