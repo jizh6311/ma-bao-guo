@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 
 app.post('/quotation', (req, res) => {
   const payload = {
-    number: _.get(req, 'body.number'),
+    _id: _.get(req, 'body.id'),
     keywords: _.get(req, 'body.keywords'),
     createdTimestamp: new Date().getTime(),
     modifiedTimestamp: new Date().getTime(),
@@ -33,7 +33,42 @@ app.post('/quotation', (req, res) => {
     res.status(201).send(body)
   }).catch((err) => {
     console.log(`Cannot insert quotation: ${err}`)
-    res.status(500).send(err)
+    res.status(500).send(err.message)
+  })
+})
+
+app.put('/quotation', (req, res) => {
+  const payload = {
+    _id: _.get(req, 'body.id'),
+    _rev: _.get(req, 'body.rev'),
+    keywords: _.get(req, 'body.keywords'),
+    modifiedTimestamp: new Date().getTime(),
+  }
+  quotations.insert(payload).then((body) => {
+    res.status(200).send(body)
+  }).catch((err) => {
+    console.log(`Cannot update quotation: ${err}`)
+    res.status(500).send(err.message)
+  })
+})
+
+app.get('/quotations', (req, res) => {
+  quotations.list().then((body) => {
+    var list = []
+    body.rows.forEach((doc) => {
+      list.push(doc)
+    })
+    res.status(200).send(list)
+  }).catch((err) => {
+    res.status(500).send(err.message)
+  })
+})
+
+app.get('/quotation/:id', (req, res) => {
+  quotations.get(req.params.id).then((body) => {
+    res.status(200).send(body)
+  }).catch((err) => {
+    es.status(500).send(err.message)
   })
 })
 
