@@ -67,7 +67,15 @@ app.get('/quotation/:id', (req, res) => {
   quotations.get(req.params.id).then((body) => {
     res.status(200).send(body)
   }).catch((err) => {
-    es.status(500).send(err.message)
+    res.status(500).send(err.message)
+  })
+})
+
+app.delete('/quotation/:id/:rev', (req, res) => {
+  quotations.destroy(req.params.id, req.params.rev).then((body) => {
+    res.status(200).send(body)
+  }).catch((err) => {
+    res.status(500).send(err.message)
   })
 })
 

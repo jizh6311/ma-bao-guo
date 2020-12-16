@@ -85,3 +85,6 @@ Response body example:
   modifiedTimestamp: 1607821791454
 }
 ```
+
+### Delete a quotation by id
+DELETE `/quotations/:id/:rev`
