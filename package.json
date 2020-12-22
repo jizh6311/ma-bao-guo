@@ -14,8 +14,9 @@
   "keywords": [
     "generator",
     "express",
-    "hbase",
-    "vue"
+    "couchdb",
+    "vue",
+    "docker"
   ],
   "author": "Jian Zhang",
   "license": "MIT",
