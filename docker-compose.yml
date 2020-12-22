@@ -2,7 +2,7 @@ services:
   ma-bao-guo:
     image: ma-bao-guo:1.0
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       counchdb:
         condition: service_started
