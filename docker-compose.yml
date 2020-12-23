@@ -1,13 +1,21 @@
 services:
-  ma-bao-guo:
-    image: ma-bao-guo:1.0
+  ma-bao-guo-backend:
+    image: ma-bao-guo-backend:1.0
     ports:
       - "8081:8081"
     depends_on:
       counchdb:
         condition: service_started
     networks:
-      - couchserver_network    
+      - couchserver_network
+      
+  ma-bao-guo-dashboard:
+    image: ma-bao-guo-dashboard:1.0
+    ports:
+      - "8080:8080"
+    depends_on:
+      ma-bao-guo-backend:
+        condition: service_started        
       
   counchdb:
     image: bitnami/couchdb:latest

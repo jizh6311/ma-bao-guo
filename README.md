@@ -8,12 +8,17 @@ Who is Ma Bao Guo?
 Yep, this is one of the most popular memes in China.
 
 ## Build docker image
+### Build backend image:
 ```
-docker build -t ma-bao-guo:1.0 .
+docker build -t ma-bao-guo-backend:1.0 .
+```
+### Build frontend image:
+```
+docker build -t ma-bao-guo-dashboard:1.0 ./dashboard
 ```
 
 ## Run docker container
-Start docker containers for backend and database services by `docker-compose up`
+Start docker containers for backend, frontend and database services by `docker-compose up`
 
 ## CouchDB
 Create one database to store all the versions of `马保国语录`:
