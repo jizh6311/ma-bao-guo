@@ -6,6 +6,7 @@ const HOST = '0.0.0.0';
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const _ = require('lodash');
 
 // use nano to connect to quotation db
@@ -17,6 +18,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('What the hell is this endpoint doing? 这是干甚么用？大意了啊！');

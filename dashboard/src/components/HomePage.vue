@@ -3,7 +3,7 @@
     <h1>{{ msg }}</h1>
     <ul id="quotation-list" class="quotations">
       <li v-for="(quotation, index) in quotations" :key="index">
-        <button id="show-quotation" @click="showQuotation=true">{{ quotation.title }}</button>
+        <button id="show-quotation" @click="showQuotation=true">quotation {{ quotation.title }}</button>
       </li>
     </ul>
     <teleport to="body">
@@ -70,6 +70,12 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { get, map } from 'lodash'
+
+const hostname = 'http://localhost:8081'
+const allQuotationsURL = '/quotations'
+
 export default {
   name: 'HomePage',
   props: {
@@ -78,8 +84,19 @@ export default {
   data() {
     return {
       showQuotation: false,
-      quotations: [{ title: '大意了' }, { title: '耗子尾汁' }]
+      quotations: []
     }
+  },
+  mounted () {
+    axios.get(`${hostname}${allQuotationsURL}`)
+      .then((res) => {
+        this.quotations = map(res.data, (n) => {
+          return { title: get(n, 'id', 'unknown')}
+        })
+      })
+      .catch((err) => {
+        console.err(`failed to fetch all the quotations: ${err}`)
+      })
   }
 }
 </script>
@@ -90,7 +107,7 @@ ul {
  list-style-type: none;
 }
 
-li{
+li {
   margin: 15px 0;
 }
 
