@@ -3,7 +3,7 @@
     <h1>{{ msg }}</h1>
     <ul id="quotation-list" class="quotations">
       <li v-for="(quotation, index) in quotations" :key="index">
-        <button id="show-quotation" @click="showQuotation=true">quotation {{ quotation.title }}</button>
+        <button id="show-quotation" v-on:click="popupQuotation(quotation.id, quotation.rev)" type="button">quotation {{ quotation.id }}</button>
       </li>
     </ul>
     <div>
@@ -12,7 +12,10 @@
     <teleport to="body">
       <div v-if="showQuotation" class="modal">
         <div>
-          {{ originalQuotation }}
+          <div>{{ originalQuotation }}</div>
+          <button class="delete-button" v-on:click="deleteQuotation" type="button">
+            delete
+          </button>
           <button class="close-button" @click="showQuotation = false">
             Close
           </button>
@@ -22,7 +25,7 @@
     <teleport to="body">
       <div v-if="addQuotation" class="modal">
         <div>
-          <input id="quotation-id" v-model="quotationId" type="text" placeholder="Add Quotation ID" />
+          <input id="quotation-id" v-model="newQuotationId" type="text" placeholder="Add Quotation ID" />
           <div>{{ originalQuotation }}</div>
           <button class="add-button" v-on:click="postQuotation" type="button">
             Add
@@ -42,6 +45,7 @@ import { get, map } from 'lodash'
 
 const hostname = 'http://localhost:8081'
 const allQuotationsURL = '/quotations'
+const quotationURL = '/quotation'
 const originalQuotation = '朋友们好啊,\
   我是混元形意太极门掌门人马宝国，\
   刚才有个朋友问我马老师发生什么事了，\
@@ -101,9 +105,8 @@ export default {
   },
   methods: {
     postQuotation () {
-      console.log("ready to post quotations")
-      axios.post('http://localhost:8081/quotation',
-        { 'id': this.quotationId, 'keywords': [] },
+      axios.post(`${hostname}${quotationURL}`,
+        { 'id': this.newQuotationId, 'keywords': [] },
         {
           headers: {
             'Content-Type': 'application/json'
@@ -112,10 +115,26 @@ export default {
       ).then(() => {
         location.reload()
       }).catch((err) => {
-        console.error(`failed to create a new quotation: ${err.message}`)
+        console.error(`failed to create a new quotation Id ${this.newQuotationId}: ${err.message}`)
       })
       
       this.addQuotation = false
+    },
+    
+    popupQuotation (quotationId, rev) {
+      this.quotationId = quotationId
+      this.rev = rev
+      this.showQuotation = true
+    },
+    
+    deleteQuotation () {
+      axios.delete(`${hostname}${quotationURL}/${this.quotationId}/${this.rev}`)
+        .then(() => {
+          location.reload()
+        }).catch((err) => {
+          console.error(`failed to delete quotation ${this.quotationId}: ${err.message}`)
+        })
+      this.showQuotation = false
     }
   },
   data() {
@@ -125,13 +144,15 @@ export default {
       quotations: [],
       originalQuotation: originalQuotation,
       quotationId: '',
+      newQuotationId: '',
+      rev: '',
     }
   },
   mounted () {
     axios.get(`${hostname}${allQuotationsURL}`)
       .then((res) => {
         this.quotations = map(res.data, (n) => {
-          return { title: get(n, 'id', 'unknown')}
+          return { id: get(n, 'id', 'unknown'), rev: get(n, 'value.rev', '') }
         })
       })
       .catch((err) => {

@@ -75,7 +75,7 @@ Response body example:
 ```
 
 ### Get a quotation by id
-GET `/quotations/:id`
+GET `/quotation/:id`
 
 Response body example:
 ```
@@ -92,4 +92,4 @@ Response body example:
 ```
 
 ### Delete a quotation by id
-DELETE `/quotations/:id/:rev`
+DELETE `/quotation/:id/:rev`
