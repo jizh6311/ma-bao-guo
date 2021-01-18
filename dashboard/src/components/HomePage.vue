@@ -26,7 +26,7 @@
       <div v-if="addQuotation" class="modal">
         <div>
           <input id="quotation-id" v-model="newQuotationId" type="text" placeholder="Add Quotation ID" />
-          <div>{{ originalQuotation }}</div>
+          <quotation-content></quotation-content>
           <button class="add-button" v-on:click="postQuotation" type="button">
             Add
           </button>
